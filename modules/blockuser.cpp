@@ -62,7 +62,7 @@ class CBlockUser : public CModule {
         return true;
     }
 
-    /* If user is the on the blocked list and tries to log in, displays - MESSAGE 
+    /* If a user is on the blocked list and tries to log in, displays - MESSAGE 
     and stops their log in attempt.*/
     EModRet OnLoginAttempt(std::shared_ptr<CAuthBase> Auth) override {
         if (IsBlocked(Auth->GetUsername())) {
