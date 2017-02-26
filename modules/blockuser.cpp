@@ -24,7 +24,6 @@ using std::vector;
 class CBlockUser : public CModule {
   public:
     MODCONSTRUCTOR(CBlockUser) {
-        //Creating all commands
         AddHelpCommand();
         AddCommand("List", static_cast<CModCommand::ModCmdFunc>(
                                &CBlockUser::OnListCommand),
@@ -63,7 +62,7 @@ class CBlockUser : public CModule {
         return true;
     }
 
-    /*If user is the on the blocked list and tries to log in, displays - MESSAGE 
+    /* If user is the on the blocked list and tries to log in, displays - MESSAGE 
     and stops their log in attempt.*/
     EModRet OnLoginAttempt(std::shared_ptr<CAuthBase> Auth) override {
         if (IsBlocked(Auth->GetUsername())) {
@@ -188,13 +187,12 @@ class CBlockUser : public CModule {
         return false;
     }
 
-    //Blocks the user
     bool Block(const CString& sUser) {
         CUser* pUser = CZNC::Get().FindUser(sUser);
 
         if (!pUser) return false;
 
-        //Disconnect all clients
+        // Disconnect all clients
         vector<CClient*> vpClients = pUser->GetAllClients();
         vector<CClient*>::iterator it;
         for (it = vpClients.begin(); it != vpClients.end(); ++it) {
@@ -202,7 +200,7 @@ class CBlockUser : public CModule {
             (*it)->Close(Csock::CLT_AFTERWRITE);
         }
 
-        //Disconnect all networks from irc
+        // Disconnect all networks from irc
         vector<CIRCNetwork*> vNetworks = pUser->GetNetworks();
         for (vector<CIRCNetwork*>::iterator it2 = vNetworks.begin();
              it2 != vNetworks.end(); ++it2) {
