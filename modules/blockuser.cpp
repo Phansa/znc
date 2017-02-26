@@ -24,6 +24,7 @@ using std::vector;
 class CBlockUser : public CModule {
   public:
     MODCONSTRUCTOR(CBlockUser) {
+        //Creating all commands
         AddHelpCommand();
         AddCommand("List", static_cast<CModCommand::ModCmdFunc>(
                                &CBlockUser::OnListCommand),
@@ -62,11 +63,7 @@ class CBlockUser : public CModule {
         return true;
     }
 
-<<<<<<< 879c813d583aaa50ab6f19994b341a0cb945b234
-    /* If a user is on the blocked list and tries to log in, displays - MESSAGE 
-=======
-    /*If user is the on the blocked list tries to log in, displays - MESSAGE 
->>>>>>> adding some comments
+    /*If user is the on the blocked list and tries to log in, displays - MESSAGE 
     and stops their log in attempt.*/
     EModRet OnLoginAttempt(std::shared_ptr<CAuthBase> Auth) override {
         if (IsBlocked(Auth->GetUsername())) {
@@ -85,11 +82,7 @@ class CBlockUser : public CModule {
         }
     }
 
-<<<<<<< 879c813d583aaa50ab6f19994b341a0cb945b234
     // Displays all blocked users as a list.
-=======
-    //Displays all blocked users as a list.
->>>>>>> adding some comments
     void OnListCommand(const CString& sCommand) {
         CTable Table;
         MCString::iterator it;
@@ -104,13 +97,9 @@ class CBlockUser : public CModule {
         if (PutModule(Table) == 0) PutModule("No users blocked");
     }
 
-<<<<<<< 879c813d583aaa50ab6f19994b341a0cb945b234
     /* Blocks a user if possible(ie not self, not already blocked).
     Displays an error message if not possible. */
-=======
-    //Blocks a user if possible(not self, not already blocked)
->>>>>>> adding some comments
-    void OnBlockCommand(const CString& sCommand) {
+     void OnBlockCommand(const CString& sCommand) {
         CString sUser = sCommand.Token(1, true);
 
         if (sUser.empty()) {
@@ -129,11 +118,7 @@ class CBlockUser : public CModule {
             PutModule("Could not block [" + sUser + "] (misspelled?)");
     }
 
-<<<<<<< 879c813d583aaa50ab6f19994b341a0cb945b234
     // Unblocks a user from the blocked list.
-=======
-    //Unblocks someone from the blocked list.
->>>>>>> adding some comments
     void OnUnblockCommand(const CString& sCommand) {
         CString sUser = sCommand.Token(1, true);
 
@@ -209,7 +194,7 @@ class CBlockUser : public CModule {
 
         if (!pUser) return false;
 
-        // Disconnect all clients
+        //Disconnect all clients
         vector<CClient*> vpClients = pUser->GetAllClients();
         vector<CClient*>::iterator it;
         for (it = vpClients.begin(); it != vpClients.end(); ++it) {
@@ -217,7 +202,7 @@ class CBlockUser : public CModule {
             (*it)->Close(Csock::CLT_AFTERWRITE);
         }
 
-        // Disconnect all networks from irc
+        //Disconnect all networks from irc
         vector<CIRCNetwork*> vNetworks = pUser->GetNetworks();
         for (vector<CIRCNetwork*>::iterator it2 = vNetworks.begin();
              it2 != vNetworks.end(); ++it2) {
