@@ -98,7 +98,7 @@ class CBlockUser : public CModule {
 
     /* Blocks a user if possible(ie not self, not already blocked).
     Displays an error message if not possible. */
-     void OnBlockCommand(const CString& sCommand) {
+    void OnBlockCommand(const CString& sCommand) {
         CString sUser = sCommand.Token(1, true);
 
         if (sUser.empty()) {
